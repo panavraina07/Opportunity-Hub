@@ -1,0 +1,408 @@
+/* ============================================================
+   CARD GRID & CARDS
+   ============================================================ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  position: relative;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .35s cubic-bezier(.2,.75,.3,1.05),
+              box-shadow .35s, border-color .35s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--stripe, var(--c-coral));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .5s cubic-bezier(.3,.9,.4,1);
+}
+.card.in-view::before { transform: scaleX(1); }
+
+.card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--grad-soft);
+  opacity: 0;
+  transition: opacity .35s;
+  z-index: -1;
+}
+.card:hover::after { opacity: 1; }
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--stripe, var(--c-coral));
+  box-shadow: var(--shadow), 0 0 0 1px var(--stripe, var(--c-coral));
+}
+
+.card[data-cat="scholarship"] { --stripe: var(--cat-scholarship); }
+.card[data-cat="internship"]  { --stripe: var(--cat-internship); }
+.card[data-cat="hackathon"]   { --stripe: var(--cat-hackathon); }
+.card[data-cat="workshop"]    { --stripe: var(--cat-workshop); }
+.card[data-cat="competition"] { --stripe: var(--cat-competition); }
+.card[data-cat="government"]  { --stripe: var(--cat-government); }
+
+.card .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+  background: color-mix(in srgb, var(--stripe) 18%, transparent);
+  color: var(--stripe);
+}
+.card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+.card .org {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.card .org i { color: var(--stripe); }
+
+.card .details { font-size: 13.5px; flex: 1; }
+.card .details p {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+.card .details p:last-child { margin-bottom: 0; }
+.card .details i {
+  color: var(--stripe);
+  width: 14px;
+  margin-top: 5px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.card .details strong { font-weight: 600; }
+
+.card .btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 11px;
+  background: var(--stripe, var(--c-coral));
+  color: #fff;
+  font-weight: 600;
+  font-size: 13.5px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: filter .25s, transform .25s, box-shadow .25s;
+}
+.card .btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--stripe) 40%, transparent);
+}
+
+/* ============================================================
+   PLATFORM DISCOVERY CARDS
+   ============================================================ */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+}
+.platform-card {
+  position: relative;
+  padding: 26px 20px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  overflow: hidden;
+  transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+.platform-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--c-coral);
+  box-shadow: var(--glow-coral);
+}
+.platform-card .icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.platform-card h4 { font-size: 15px; font-weight: 700; }
+.platform-card p { font-size: 12px; color: var(--text-dim); margin: 5px 0 12px; }
+.platform-card a {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-coral);
+}
+
+/* ============================================================
+   SCROLL REVEAL ANIMATION
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+
+
+
+/* ============================================================
+   FEATURE 2: HERO LIVE SEARCH BAR
+   ============================================================ */
+.search-box-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 560px;
+  margin-bottom: 28px;
+}
+.search-box-wrap input {
+  width: 100%;
+  padding: 14px 44px 14px 44px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .3s, box-shadow .3s;
+}
+.search-box-wrap input:focus {
+  border-color: var(--c-coral);
+  box-shadow: var(--glow-coral);
+}
+.search-box-wrap .search-icon {
+  position: absolute;
+  left: 16px;
+  color: var(--text-dim);
+  font-size: 15px;
+  pointer-events: none;
+}
+.search-box-wrap .clear-search {
+  position: absolute;
+  right: 14px;
+  color: var(--text-dim);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+}
+.search-box-wrap .clear-search:hover { color: var(--c-coral); }
+
+/* ============================================================
+   HEADER ACTION BUTTONS
+   ============================================================ */
+.btn-action-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 8px;
+  background: var(--grad);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-action-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-coral);
+}
+.btn-action-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  transition: border-color .2s, color .2s;
+}
+.btn-action-outline:hover {
+  border-color: var(--c-coral);
+  color: var(--c-coral);
+}
+
+/* ============================================================
+   FEATURE 6: CARD ACTIONS (APPLY + SHARE BUTTONS)
+   ============================================================ */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.card-actions .btn {
+  flex: 1;
+  margin-top: 0;
+}
+.btn-share {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: border-color .2s, color .2s, transform .2s;
+}
+.btn-share:hover {
+  border-color: var(--c-coral);
+  color: var(--c-coral);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   MODALS (POPUP WINDOWS)
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+
+.modal-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 540px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  animation: modalIn .3s ease-out;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.modal-header h3 { font-size: 20px; font-weight: 700; color: var(--text); }
+.modal-close { font-size: 24px; color: var(--text-dim); cursor: pointer; }
+.modal-close:hover { color: var(--text); }
+.modal-desc { font-size: 13.5px; color: var(--text-dim); margin-bottom: 18px; }
+
+.form-group { margin-bottom: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13.5px;
+  outline: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--c-coral);
+}
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.cb-label {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  cursor: pointer;
+}
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: var(--grad);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity .2s, transform .2s;
+}
+.btn-submit:hover { opacity: 0.95; transform: translateY(-2px); }
+
+/* TOAST MESSAGE */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  background: var(--bg-alt);
+  border: 1px solid var(--c-coral);
+  box-shadow: var(--glow-coral);
+  color: var(--text);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: none;
+  animation: modalIn .3s ease;
+}

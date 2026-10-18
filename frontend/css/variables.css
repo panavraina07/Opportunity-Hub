@@ -1,0 +1,91 @@
+/* ============================================================
+   1. DESIGN TOKENS — DARK THEME (Default)
+   ============================================================ */
+:root {
+  /* Backgrounds */
+  --bg:              #0B0718;
+  --bg-alt:          #150E28;
+  --bg-raised:       #1E1636;
+  --bg-overlay:      rgba(11,7,24,0.72);
+
+  /* Borders */
+  --border:          #2C2148;
+  --border-hover:    #45346B;
+
+  /* Text Colors */
+  --text:            #F5EEE2;
+  --text-dim:        #A296B8;
+
+  /* Accent Gradient Colors */
+  --c-amber:         #FFC46B;
+  --c-coral:         #FF7A5C;
+  --c-plum:          #B37CFF;
+  --c-teal:          #46E4C4;
+
+  /* Gradients */
+  --grad:            linear-gradient(120deg, var(--c-amber) 0%, var(--c-coral) 45%, var(--c-plum) 100%);
+  --grad-soft:       linear-gradient(120deg, rgba(255,196,107,0.14), rgba(255,122,92,0.12), rgba(179,124,255,0.14));
+
+  /* Category Specific Colors */
+  --cat-scholarship: #FFC46B;
+  --cat-internship:  #46E4C4;
+  --cat-hackathon:   #FF7A5C;
+  --cat-workshop:    #B37CFF;
+  --cat-competition: #FF8FB1;
+  --cat-government:  #6BCBFF;
+
+  /* Shadows and Glows */
+  --shadow:          0 20px 50px rgba(0,0,0,0.55);
+  --glow-amber:      0 12px 40px rgba(255,196,107,0.22);
+  --glow-coral:      0 12px 40px rgba(255,122,92,0.22);
+  --glow-plum:       0 12px 40px rgba(179,124,255,0.22);
+
+  /* Dimensions & Radius */
+  --radius:          20px;
+  --radius-sm:       14px;
+  --header-h:        68px;
+
+  /* Grid Line and Transitions */
+  --theme-ease:      background .4s ease, color .4s ease, border-color .4s ease, box-shadow .4s ease;
+  --grid-line:       rgba(255,255,255,0.022);
+  --header-bg:       rgba(11,7,24,0.72);
+}
+
+/* ============================================================
+   2. DESIGN TOKENS — LIGHT THEME
+   ============================================================ */
+[data-theme="light"] {
+  --bg:              #EEF2F8;
+  --bg-alt:          #FFFFFF;
+  --bg-raised:       #DDE5F0;
+  --bg-overlay:      rgba(238,242,248,0.80);
+
+  --border:          #CFD9E8;
+  --border-hover:    #A5B4CC;
+
+  --text:            #0A1628;
+  --text-dim:        #5A6A82;
+
+  --c-amber:         #E87A2E;
+  --c-coral:         #D6336C;
+  --c-plum:          #4338CA;
+  --c-teal:          #0F766E;
+
+  --grad:            linear-gradient(120deg, #4338CA 0%, #D6336C 50%, #E87A2E 100%);
+  --grad-soft:       linear-gradient(120deg, rgba(67,56,202,0.10), rgba(214,51,108,0.10), rgba(232,122,46,0.10));
+
+  --cat-scholarship: #B45309;
+  --cat-internship:  #0F766E;
+  --cat-hackathon:   #C2410C;
+  --cat-workshop:    #4338CA;
+  --cat-competition: #BE185D;
+  --cat-government:  #0369A1;
+
+  --shadow:          0 20px 50px rgba(28,40,68,0.12);
+  --glow-amber:      0 12px 40px rgba(232,122,46,0.18);
+  --glow-coral:      0 12px 40px rgba(214,51,108,0.18);
+  --glow-plum:       0 12px 40px rgba(67,56,202,0.18);
+
+  --grid-line:       rgba(10,22,40,0.05);
+  --header-bg:       rgba(238,242,248,0.78);
+}
